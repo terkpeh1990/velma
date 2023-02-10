@@ -133,40 +133,40 @@ WSGI_APPLICATION = 'velma_backend.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 
-if DEVELOPMENT_MODE is True:
-    DATABASES = {
-        "default": {
-           'ENGINE': 'django_tenants.postgresql_backend',
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': os.getenv('DB_HOST'),
-            'PORT': os.getenv('DB_HOST'),
-            'sslmode': require
-        # 'ENGINE': 'django_tenants.postgresql_backend',
-        #     'NAME': config('DB_NAME'),
-        #     'USER': config('DB_USER'),
-        #     'PASSWORD': config('DB_PASSWORD'),
-        #     'HOST': config('DB_HOST'),
-        #     'PORT': '',
-        }
+# if DEVELOPMENT_MODE is True:
+DATABASES = {
+    "default": {
+       'ENGINE': 'django_tenants.postgresql_backend',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_HOST'),
+        'sslmode': require
+    # 'ENGINE': 'django_tenants.postgresql_backend',
+    #     'NAME': config('DB_NAME'),
+    #     'USER': config('DB_USER'),
+    #     'PASSWORD': config('DB_PASSWORD'),
+    #     'HOST': config('DB_HOST'),
+    #     'PORT': '',
     }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
-    if os.getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": {
-           'ENGINE': 'django_tenants.postgresql_backend',
-            'NAME': config('dbname'),
-            'USER': config('username'),
-            'PASSWORD': config('password'),
-            'HOST': config('host'),
-            'PORT': '25060',
-             'sslmode': 'require'
-        }
+  }
+# elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+#     if os.getenv("DATABASE_URL", None) is None:
+#         raise Exception("DATABASE_URL environment variable not defined")
+#     DATABASES = {
+#         "default": {
+#            'ENGINE': 'django_tenants.postgresql_backend',
+#             'NAME': config('dbname'),
+#             'USER': config('username'),
+#             'PASSWORD': config('password'),
+#             'HOST': config('host'),
+#             'PORT': '25060',
+#              'sslmode': 'require'
+#         }
         
-        # "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
+#         # "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
+#     }
 
 DATABASE_ROUTERS = (
     'django_tenants.routers.TenantSyncRouter',
